@@ -21,6 +21,16 @@ import {
 import { PROJECTS, CATEGORIES } from './constants';
 import { Project, ProjectCategory } from './types';
 
+const optimizeImage = (url: string, width?: number, quality: number = 80) => {
+  if (!url || !url.startsWith('http')) return url;
+  const baseUrl = 'https://images.weserv.nl/?url=';
+  let optimizedUrl = `${baseUrl}${encodeURIComponent(url)}&output=webp&q=${quality}`;
+  if (width) {
+    optimizedUrl += `&w=${width}`;
+  }
+  return optimizedUrl;
+};
+
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | '全部'>('全部');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -262,7 +272,7 @@ export default function App() {
             >
               <div className="w-full max-w-[320px] aspect-[4/5] rounded-[3rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(24,40,104,0.2)] relative z-10 border-[8px] md:border-[12px] border-white">
                 <img 
-                  src="https://cdn.jsdelivr.net/gh/02evenn/images@main/%E8%AF%81%E4%BB%B6%E7%85%A7.jpg" 
+                  src={optimizeImage("https://cdn.jsdelivr.net/gh/02evenn/images@main/%E8%AF%81%E4%BB%B6%E7%85%A7.jpg", 640)} 
                   alt="林安琪 Nevaeh" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -328,16 +338,18 @@ export default function App() {
                     <div className="w-full h-full rounded-[1.5rem] overflow-hidden relative">
                       {/* Blurred Background Layer */}
                       <img 
-                        src={project.imageUrl} 
+                        src={optimizeImage(project.imageUrl, 100, 20)} 
                         className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-30 scale-110"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                       {/* Main Image Layer */}
                       <img 
-                        src={project.imageUrl} 
+                        src={optimizeImage(project.imageUrl, 800)} 
                         alt={project.title} 
                         className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-1000"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 z-20 bg-brand-deep/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                         <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform">
@@ -449,7 +461,7 @@ export default function App() {
                         onClick={() => setViewingFullImage(selectedProject.imageUrl)}
                       >
                         <img 
-                          src={selectedProject.imageUrl} 
+                          src={optimizeImage(selectedProject.imageUrl, 1200)} 
                           alt={selectedProject.title} 
                           className="w-full h-full object-contain bg-brand-sand/5"
                           referrerPolicy="no-referrer"
@@ -477,9 +489,10 @@ export default function App() {
                                     onClick={() => setViewingFullImage(img)}
                                   >
                                     <img 
-                                      src={img} 
+                                      src={optimizeImage(img, 400)} 
                                       className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" 
                                       referrerPolicy="no-referrer" 
+                                      loading="lazy"
                                     />
                                     <div className="absolute inset-0 bg-black/10 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                                       <Maximize2 className="text-white" size={16} />
@@ -498,9 +511,10 @@ export default function App() {
                             onClick={() => setViewingFullImage(img)}
                           >
                             <img 
-                              src={img} 
+                              src={optimizeImage(img, 800)} 
                               className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity" 
                               referrerPolicy="no-referrer" 
+                              loading="lazy"
                             />
                             <div className="absolute inset-0 bg-black/10 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                               <Maximize2 className="text-white" size={20} />
@@ -624,10 +638,11 @@ export default function App() {
                   <div className="flex flex-col items-center gap-4 md:gap-6">
                     <div className="w-48 h-48 md:w-64 md:h-64 bg-brand-cream rounded-2xl flex items-center justify-center border-2 border-dashed border-brand-accent/20 relative overflow-hidden">
                       <img 
-                        src="https://cdn.jsdelivr.net/gh/02evenn/images@main/%E5%BE%AE%E4%BF%A1%E4%BA%8C%E7%BB%B4%E7%A0%811.jpg" 
+                        src={optimizeImage("https://cdn.jsdelivr.net/gh/02evenn/images@main/%E5%BE%AE%E4%BF%A1%E4%BA%8C%E7%BB%B4%E7%A0%811.jpg", 512)} 
                         alt="WeChat QR Code" 
                         className="w-full h-full object-contain"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
                     </div>
                     <div className="text-center">
