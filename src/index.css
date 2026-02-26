@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  
+  --color-brand-deep: #182868;
+  --color-brand-accent: #F08028;
+  --color-brand-blue-mid: #487098;
+  --color-brand-blue-dark: #386080;
+  --color-brand-cream: #FAF9F6;
+  --color-brand-sand: #D4CDBA;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-brand-cream text-brand-deep font-sans antialiased overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .bg-grainy {
+    position: relative;
+    background-color: var(--color-brand-cream);
+  }
+
+  .bg-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.03;
+    background-image: 
+      repeating-radial-gradient(#000 0 0.0001%,#fff 0 0.0002%) 50% 0/2500px 2500px,
+      repeating-conic-gradient(#000 0 0.0001%,#fff 0 0.0002%) 50% 50%/2500px 2500px;
+    background-blend-mode: difference;
+    filter: contrast(150%) brightness(100%);
+  }
+
+  .diffuse-blob {
+    @apply absolute blur-[120px] rounded-full opacity-40 mix-blend-multiply pointer-events-none;
+  }
+}
+
