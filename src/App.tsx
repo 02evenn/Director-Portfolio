@@ -16,7 +16,8 @@ import {
   GraduationCap,
   User,
   ExternalLink,
-  Maximize2
+  Maximize2,
+  Download
 } from 'lucide-react';
 import { PROJECTS, CATEGORIES } from './constants';
 import { Project, ProjectCategory } from './types';
@@ -51,7 +52,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-brand-cream selection:bg-brand-accent selection:text-white relative overflow-x-hidden">
       {/* Reference-inspired Gradient Background with Light Flow */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 no-print">
         {/* Sharper Grain Overlay (Background only) */}
         <div className="bg-particles opacity-[0.1]" />
         
@@ -162,10 +163,18 @@ export default function App() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full" />
               </a>
             ))}
+            {/* Download PDF Button */}
+            <button 
+              onClick={() => window.print()}
+              className="flex items-center gap-2 px-4 py-2 bg-brand-accent text-white rounded-full text-xs font-bold hover:bg-brand-deep transition-all shadow-lg shadow-brand-accent/20 no-print"
+            >
+              <Download size={14} />
+              导出 PDF
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="md:hidden text-brand-deep p-2 bg-brand-accent/10 rounded-lg" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button className="md:hidden text-brand-deep p-2 bg-brand-accent/10 rounded-lg no-print" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -194,6 +203,16 @@ export default function App() {
                 {item.name}
               </a>
             ))}
+            <button 
+              onClick={() => {
+                setIsMenuOpen(false);
+                setTimeout(() => window.print(), 300);
+              }}
+              className="mt-4 flex items-center gap-3 px-8 py-4 bg-brand-accent text-white rounded-full text-lg font-bold shadow-xl shadow-brand-accent/20"
+            >
+              <Download size={24} />
+              导出 PDF 格式
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -255,7 +274,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 no-print">
                 <a href="#works" className="group inline-flex items-center gap-3 px-10 py-5 bg-brand-deep text-brand-cream rounded-full font-bold hover:bg-brand-accent transition-all shadow-2xl shadow-brand-deep/20">
                   查看作品集 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -299,7 +318,7 @@ export default function App() {
             </div>
             
             {/* Filter */}
-            <div className="flex flex-wrap gap-2 md:gap-3 justify-start md:justify-end">
+            <div className="flex flex-wrap gap-2 md:gap-3 justify-start md:justify-end no-print">
               <button 
                 onClick={() => setSelectedCategory('全部')}
                 className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all ${selectedCategory === '全部' ? 'bg-brand-accent text-white shadow-xl shadow-brand-accent/30' : 'bg-white text-brand-deep hover:bg-brand-accent/10 border border-brand-accent/10'}`}
@@ -385,7 +404,7 @@ export default function App() {
                     {/* Action Button */}
                     <button 
                       onClick={() => setSelectedProject(project)}
-                      className="inline-flex items-center justify-center gap-2 w-full py-4 bg-brand-deep/5 hover:bg-brand-accent hover:text-white text-brand-deep rounded-2xl font-bold transition-all group/btn"
+                      className="inline-flex items-center justify-center gap-2 w-full py-4 bg-brand-deep/5 hover:bg-brand-accent hover:text-white text-brand-deep rounded-2xl font-bold transition-all group/btn no-print"
                     >
                       点击查看详情
                       <ExternalLink size={18} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -600,8 +619,8 @@ export default function App() {
         <section id="contact" className="py-12 md:py-32 px-4 md:px-6 max-w-7xl mx-auto">
           <div className="bg-brand-deep rounded-[2rem] md:rounded-[4rem] p-6 md:p-24 text-white relative overflow-hidden shadow-2xl shadow-brand-deep/40">
             {/* Decorative circles */}
-            <div className="absolute -top-20 -right-20 w-96 h-96 bg-brand-accent/10 rounded-full blur-[120px]" />
-            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-brand-blue-mid/10 rounded-full blur-[100px]" />
+            <div className="absolute -top-20 -right-20 w-96 h-96 bg-brand-accent/10 rounded-full blur-[120px] no-print" />
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-brand-blue-mid/10 rounded-full blur-[100px] no-print" />
 
             <div className="relative z-10 grid lg:grid-cols-12 gap-16 items-center">
               <div className="lg:col-span-7 text-center lg:text-left">

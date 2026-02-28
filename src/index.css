@@ -46,3 +46,47 @@
   }
 }
 
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+  
+  .bg-particles, .diffuse-blob, .fixed.inset-0 {
+    display: none !important;
+  }
+  
+  nav {
+    display: none !important;
+  }
+  
+  .shadow-2xl, .shadow-xl, .shadow-lg {
+    box-shadow: none !important;
+    border: 1px solid #eee;
+  }
+  
+  .bg-brand-deep {
+    background-color: #182868 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .text-white {
+    color: white !important;
+  }
+  
+  .rounded-[3rem], .rounded-[4rem], .rounded-[2rem] {
+    border-radius: 1rem !important;
+  }
+}
+
